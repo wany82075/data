@@ -36,8 +36,31 @@ lombok是在编译期间自动生成代码，好处是使代码更加简洁；�
 	}
 	prefix
 	prefix的中文含义是前缀，用于生成getter和setter方法的字段名会忽视指定前缀（遵守驼峰命名）
+@Log4j：注解在类上；为类提供一个 属性名为log 的 log4j 日志对像
 
+2. spring及spring boot的一些注解说明
+@ConditionalOnProperty注解
+@ConditionalOnProperty(prefix = "filter", name = "loginFilter", havingValue = "true")
+用来控制@Configuration是否生效；prefix为配置文件中的配置项的前缀，name为配置项的名字，havingValue是与配置的值对比值,当两个值相同返回true,配置类生效。
 
-	
-	
+@PropertySource注解
+@PropertySource(value ={"classpath:person.properties"}) 
+这样可以不把所有的配置放到application.properties文件中
+
+@ImportResource注解
+@ImportResource(locations = {"classpath:bean.xml"})
+引入spring的xml配置文件，有些配置可能不可避免还需要用到xml，但能够不适用xml就不要使用
+
+3. spring 提供的自动注入类的方式
+在spring.factories文件中添加相应的配置内容，然后自动配置类会初始化相关的配置类
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration
+
+4. springboot 配置文件
+配置文件参数之间可以相互引用，示例如下：
+cn.dlut.edu.test.configitem1=value1
+cn.dlut.edu.test.configitem2=value2
+cn.dlut.edu.test.configitem3=${cn.dlut.edu.test.configitem1}${cn.dlut.edu.test.configitem2}
+
+5. 使用swgger，本项目中有过简单的尝试，但是否使用swagger，待讨论
 	
